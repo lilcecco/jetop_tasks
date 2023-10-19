@@ -17,7 +17,7 @@ app.use('/weather', async (req, res) => {
   const dt = `${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}`;
 
   const fetchCoordinates = async () => {
-    const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=7add6eee2451fce762de02d628b1da87`);
+    const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.API_KEY}`);
     const data = await res.json();
     return data[0];
   }
@@ -25,7 +25,7 @@ app.use('/weather', async (req, res) => {
   const { lat, lon } = await fetchCoordinates();
 
   const fetchForecasts = async () => {
-    const res = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=7add6eee2451fce762de02d628b1da87`);
+    const res = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`);
     const data = await res.json();
     return data['list'];
   }
